@@ -40,3 +40,9 @@ test('search', async ({ page }) => {
 test('wait',async({page})=>{
     await page.waitForSelector('#signin2',{timeout:5000});//
 })
+
+test('otokey',async({page})=>{
+    await page.type('#loginusername','emir');
+    await page.type('#loginpassword','2121');
+})
+
