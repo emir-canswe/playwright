@@ -46,3 +46,11 @@ test('otokey',async({page})=>{
     await page.type('#loginpassword','2121');
 })
 
+test('seach2',async({page})=>{
+    await page.goto("https://www.google.com/");
+    await page.fill('#APjFqb', 'ahmet can gundogmus');
+    await page.press('#APjFqb', 'Enter');
+
+
+})
+
