@@ -28,7 +28,7 @@ test.describe("test_ders1",()=>{
     await page.fill('#username', 'myUserName');//bu kodda ise kullanici adi ve şifre kismini otomatik olarak test eder (kendi kendi giris yapar yani)
     await page.fill('#password', 'myPassword123');
     await page.check('#agree');//Checkbox kutunusu otomatik doldurur
-    await page.selectOption('#country', 'TR');//dil secenegini turkce yapar*/
+    await page.selectOption('#country', 'TR');
 });
 
 
