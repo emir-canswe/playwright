@@ -4,7 +4,7 @@ import { ApplicationSettingsAction } from '../../../backend/actions/application-
 import { OrderAssertions } from '../../../backend/assertions/order.assertions';
 import { OrderAction } from '../../../backend/actions/order.action';
 import { MobileLoginPageObject } from '../../../page-objects/mobile/login/mobile-login-page.object';
-
+import { MobileMainPageObject } from '../main/mobile-main-page.object';
 
 test.beforeEach('Open start URL', async ({ page, request }) => {
     console.log(`Running ${test.info().title}`);
@@ -95,4 +95,62 @@ test('odeme', async ({ page }) => {
         .selectTable('18')
         .showInvoice()
         .closeInvoice();
+});
+
+
+
+test('pay the bill(cash)', async ({ page }) => {
+    const loginPage = await MobileLoginPageObject.create(page);
+
+    // 1. Login + ürün ekleme (MobileMainPageObject kullanılarak)
+    const mainPage = await loginPage
+        .start()
+        .withPassword('571622')
+        .onLogin();
+
+    await mainPage
+        .takeProductGroupSelection()
+        .takeGroup('Getränke')
+        .backToProductSelection()
+        .takeProduct('Ayran');
+
+
+    // 3. Masa ve ödeme işlemleri (tekrar loginPage objesi kullanılıyor)
+    await loginPage
+        .openTableSelection()
+        .selectTable('1')
+        .sendToTable()
+        .confirmOk()
+        .openTableSelection()
+        .selectTable('1')
+        .paythebill()
+        .cashpayment();
+});
+
+test('pay the bill(card)', async ({ page }) => {
+    const loginPage = await MobileLoginPageObject.create(page);
+
+    // 1. Login + ürün ekleme (MobileMainPageObject kullanılarak)
+    const mainPage = await loginPage
+        .start()
+        .withPassword('571622')
+        .onLogin();
+
+    await mainPage
+        .takeProductGroupSelection()
+        .takeGroup('Getränke')
+        .backToProductSelection()
+        .takeProduct('Ayran');
+
+
+    // 3. Masa ve ödeme işlemleri (tekrar loginPage objesi kullanılıyor)
+    await loginPage
+        .openTableSelection()
+        .selectTable('1')
+        .sendToTable()
+        .confirmOk()
+        .openTableSelection()
+        .selectTable('1')
+        .paythebill()
+        .cardpayment()
 });
