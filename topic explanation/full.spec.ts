@@ -75,8 +75,8 @@ test("soft assertions", async ({ page }) => {
     //----diger kullanim sekilleri
 
 
-    const day1=page.getByText("monday");
-    const day2=page.getByText("moday");
+    const day1 = page.getByText("monday");
+    const day2 = page.getByText("moday");
 
     await day1.click();
     await page.getByAltText("moday").click();
@@ -86,7 +86,95 @@ test("soft assertions", async ({ page }) => {
     await expect(page.getByAltText("monday")).toBeChecked();
     //bu ikisi de tiklanip tiklanmadigini kontrol eder
 
-    await page.press("#alan",'Enter');
+    await page.press("#alan", 'Enter');
     //pres senin bir tusa tiklamani saglar
+
+
+
+
+
+})
+
+
+test("Alert", async ({ page }) => {
+
+    page.on("dialog", dialog => {
+        expect(dialog.type()).toContain("alert");
+        expect(dialog.message()).toBe("I am an alert box!");//uyari msjini kontrol etmeni saglayin kod satiri
+        dialog.accept()
+    })
+
+    await page.click("//button[text()='Alert']");
+
+})//alert sana vep sayfasinin msj yazip yazmadigni kontrol eder
+
+
+
+//---Frame
+//frameler bir vepsitenin içindeki baska bir siteyi test etmei saglar
+//ornegin bir wepsitenin içindeki reklam gibi 
+test("Frame1", async ({ page }) => {
+
+    const frame1 = page.frameLocator("#frame1");
+
+    frame1.getByText("This is a sample page");
+
+    const elementsText = await frame1.getByAltText("This is a sample page").textContent();
+
+    expect(elementsText).toBe("This is a sample page");
+
+
+
+})
+
+
+//klayye işlemleri
+test("keyboar acions", async ({ page }) => {
+
+    //klavyedeki butonlara basma işlemidir
+    await page.goto("https://www.ebay.com/");//sayfaya git
+    const searchBox = page.getByPlaceholder("Search for anything");
+
+    await searchBox.fill("phone holder for bike");//search kismina bu yaziyi yazar
+
+
+    await page.keyboard.down('Shift');//down basili tutma işlemini gerceklestirir
+
+    for (let i = 0; i < 'bike'.length; i++) {
+
+        await page.keyboard.press("ArrowLeft");//pres tek seferlik tiklamalar için kullanilir
+        //arrowleft işe sol ok tusuna basmani sagar bir kere
+    }
+    await page.waitForTimeout(3000);
+
+    await page.keyboard.up("Shift");//up ise down yani takili birakilandan elini  cekme işlemini saglar
+
+    await page.keyboard.press("Blackspace");//bike kelimesini silma işleminidir
+
+    await page.keyboard.press("c");
+
+    await page.keyboard.press("a");
+
+    await page.keyboard.press("r");
+
+    await page.keyboard.press("Enter");//enter tusuna basar
+
+
+
+})
+
+
+//Dosya yukleme işlemleriza
+test("updates file", async ({ page }) => {
+
+    await page.goto("htts://demoqa.com/upload-dowloand");
+    const uploadInput=page.locator("id=uploadFile");
+
+    await uploadInput.setInputFiles("emircan.pdf");//bu dosyayi eklemei işlemidir
+
+    const controls=page.locator("id=uploadFilePath");
+    expect(controls.textContent()).toContain("emircan.pdf");//dosyanin yuklendi m yuklenmedigi mi kontrol eder
+
+
 
 })
