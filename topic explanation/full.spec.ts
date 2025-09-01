@@ -160,6 +160,7 @@ test("keyboar acions", async ({ page }) => {
     await page.keyboard.press("Enter");//enter tusuna basar
 
 
+  await page.paginationLocator("google.com")//bir sayfadaki diger linklere ulasmani saglar
 
 })
 
