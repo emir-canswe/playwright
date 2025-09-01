@@ -53,7 +53,10 @@ test("soft assertions", async ({ page }) => {
     expect(str2).toContain("emir");
     //tocontain içermek anlaminda zaten ordan akina gelsin
 
+    //const buttons = page.locator('button');
+    //console.log(await buttons.count()); // sayfadaki tüm <button> sayısını döner
 
+    //yani count girilen elementen cok tane olduguna bakar
 
 
     //Getbyrole
