@@ -57,7 +57,7 @@ test("soft assertions", async ({ page }) => {
     //console.log(await buttons.count()); // sayfadaki tüm <button> sayısını döner
 
     //yani count girilen elementen cok tane olduguna bakar
-
+    //paginationLocator  metot bir linki dger linklere atmani saglar
 
     //Getbyrole
 
