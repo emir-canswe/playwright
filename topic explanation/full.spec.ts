@@ -90,7 +90,7 @@ test("soft assertions", async ({ page }) => {
     //pres senin bir tusa tiklamani saglar
 
 
-
+//parseInt->bu ise  stingli intecera ceviran kod logu
 
 
 })
